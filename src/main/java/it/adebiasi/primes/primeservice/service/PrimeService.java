@@ -1,6 +1,7 @@
 package it.adebiasi.primes.primeservice.service;
 
 import it.adebiasi.primes.primeservice.Entity.PrimeCollector;
+import it.adebiasi.primes.primeservice.exception.NumberToBigException;
 
 public interface PrimeService {
 
@@ -10,5 +11,5 @@ public interface PrimeService {
      * @param n
      * @return
      */
-    PrimeCollector getPrimeUpToN(long n);
+    PrimeCollector getPrimeUpToN(long n) throws NumberToBigException;
 }

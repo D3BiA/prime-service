@@ -1,31 +1,38 @@
 package it.adebiasi.primes.primeservice.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import it.adebiasi.primes.primeservice.util.InlineListDeserializer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PrimeCollector {
 
-    private long prime;
+    @JsonProperty(value = "Initial")
+    private long initial;
 
-    private List<Long> previousPrimes = new ArrayList<>();
+    @JsonProperty(value = "Primes")
+    @JsonSerialize(using = InlineListDeserializer.class)
+    private List<Long> primes = new ArrayList<>();
 
-    public PrimeCollector(long prime) {
-        this.prime = prime;
+    public PrimeCollector(long initial) {
+        this.initial = initial;
     }
 
-    public long getPrime() {
-        return prime;
+    public long getInitial() {
+        return initial;
     }
 
-    public List<Long> getPreviousPrimes() {
-        return previousPrimes;
+    public List<Long> getPrimes() {
+        return primes;
     }
 
-    public void setPreviousPrimes(List<Long> previousPrimes) {
-        this.previousPrimes = previousPrimes;
+    public void setPrimes(List<Long> primes) {
+        this.primes = primes;
     }
 
     public void addPrime(long i) {
-        previousPrimes.add(i);
+        primes.add(i);
     }
 }

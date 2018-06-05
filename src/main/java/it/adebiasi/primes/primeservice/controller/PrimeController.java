@@ -1,6 +1,7 @@
 package it.adebiasi.primes.primeservice.controller;
 
 import it.adebiasi.primes.primeservice.Entity.PrimeCollector;
+import it.adebiasi.primes.primeservice.exception.NumberToBigException;
 import it.adebiasi.primes.primeservice.service.PrimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -19,7 +20,7 @@ public class PrimeController {
 
     @RequestMapping(path = "/{number}", method = RequestMethod.GET)
     @ResponseBody
-    public PrimeCollector getPrimeUpToN(@PathVariable long number) {
+    public PrimeCollector getPrimeUpToN(@PathVariable long number) throws NumberToBigException {
         return service.getPrimeUpToN(number);
     }
 }

@@ -1,19 +1,29 @@
 package it.adebiasi.primes.primeservice.service;
 
 import it.adebiasi.primes.primeservice.Entity.PrimeCollector;
+import it.adebiasi.primes.primeservice.exception.NumberToBigException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+@Profile("default")
 @Service
 public class PrimeServiceImpl implements PrimeService {
 
+    @Value("${prime.maxallowed}")
+    private Long maxAllowed;
+
     @Override
-    public PrimeCollector getPrimeUpToN(long n) {
+    public PrimeCollector getPrimeUpToN(long n) throws NumberToBigException {
         PrimeCollector collector = new PrimeCollector(n);
-        numPrime(collector, n);
+        if (n > maxAllowed) {
+            throw new NumberToBigException(n);
+        }
+        calculatePrimes(collector, n);
         return collector;
     }
 
-    private PrimeCollector numPrime(PrimeCollector collector, long max) {
+    private PrimeCollector calculatePrimes(PrimeCollector collector, long max) {
         for (long i = 0; i <= max; i++) {
             if (isPrime(i)) {
                 collector.addPrime(i);

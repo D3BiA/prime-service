@@ -1,2 +1,2 @@
-# prime-service
+# initial-service
 Prime number discovery service
